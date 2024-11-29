@@ -63,7 +63,7 @@
 </head>
 
 <body>
-    <h1 th:text="${user.id>0} ? 'Редактирование пользователя' : 'Добавление нового пользователя'"></h1>
+    <h1 th:text="${user.id!=null} ? 'Редактирование пользователя' : 'Добавление нового пользователя'"></h1>
     <p class="info-text" th:text="${infoText}"></p>
     <div class="form-container">
         <form th:action="@{/users/edit}" method="post" accept-charset="UTF-8">

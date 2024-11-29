@@ -15,47 +15,44 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "age")
     private int age;
 
     public User() {}
 
     public User(String firstName, String lastName, int age) {
-        this.setFirstName(firstName).setLastName(lastName).setAge(age);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
     }
 
     public Long getId() {
         return id;
     }
 
-    public User setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
     public String getFirstName() { return firstName; }
 
-    public User setFirstName(String firstName) {
+    public void  setFirstName(String firstName) {
         this.firstName = firstName;
-        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public User setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
     }
 
     public int getAge() {
         return age;
     }
 
-    public User setAge(int age) {
+    public void setAge(int age) {
         this.age = age;
-        return this;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package web.dao;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import web.models.User;
 
 import javax.persistence.EntityManager;
@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-@Transactional
 public class UserDaoImp implements UserDao {
 
     @PersistenceContext
@@ -21,6 +20,7 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
+    @Cacheable("users")
     public List<User> listUsers() {
         return entityManager.createQuery("FROM User", User.class).getResultList();
     }
