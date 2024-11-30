@@ -34,15 +34,9 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void saveOrUpdateUser(User user) {
         validateUser (user);
-        userDao.updateUser(user);
-    }
-
-    @Override
-    public void saveUser(User user) {
-        validateUser (user);
-        userDao.saveUser(user);
+        userDao.saveOrUpdateUser(user);
     }
 
     private void validateUser (User user) {

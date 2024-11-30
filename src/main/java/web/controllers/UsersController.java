@@ -48,11 +48,7 @@ public class UsersController {
     @PostMapping("/edit")
     public String updateUser(@ModelAttribute("user") User user, Model model) {
         try {
-            if (user.getId() != null) {
-                userService.updateUser (user);
-            } else {
-                userService.saveUser (user);
-            }
+            userService.saveOrUpdateUser(user);
             return "redirect:/users";
         } catch (IllegalArgumentException e) {
             model.addAttribute("user", user);
