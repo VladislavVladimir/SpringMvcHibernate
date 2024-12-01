@@ -3,9 +3,12 @@ package web.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.models.User;
 import web.services.UserService;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
@@ -46,14 +49,12 @@ public class UsersController {
     }
 
     @PostMapping("/edit")
-    public String updateUser(@ModelAttribute("user") User user, Model model) {
-        try {
-            userService.saveOrUpdateUser(user);
-            return "redirect:/users";
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("user", user);
-            model.addAttribute("infoText", e.getMessage());
+    public String updateUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("infoText", "Пожалуйста, исправьте ошибки в форме.");
             return "edit";
         }
+        userService.saveOrUpdateUser(user);
+        return "redirect:/users";
     }
 }

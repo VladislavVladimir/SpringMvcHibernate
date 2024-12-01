@@ -59,6 +59,12 @@
             text-align: center;
             color: #666; /* Цвет текста для дополнительной информации */
         }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 
@@ -66,16 +72,20 @@
     <h1 th:text="${user.id!=null} ? 'Редактирование пользователя' : 'Добавление нового пользователя'"></h1>
     <p class="info-text" th:text="${infoText}"></p>
     <div class="form-container">
-        <form th:action="@{/users/edit}" method="post" accept-charset="UTF-8">
-            <input type="hidden" name="id" th:value="${user.id}"/>
-            <label for="firstName">Имя</label>
-            <input type="text" id="firstName" name="firstName" th:value="${user.firstName}"/>
+        <form th:action="@{/users/edit}" th:object="${user}" method="post" accept-charset="UTF-8">
+            <input type="hidden" name="id" th:value="*{id}"/>
+
+            <label for="name">Имя</label>
+            <input type="text" id="name" name="name" th:value="*{name}"/>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
 
             <label for="lastName">Фамилия</label>
-            <input type="text" id="lastName" name="lastName" th:value="${user.lastName}"/>
+            <input type="text" id="lastName" name="lastName" th:value="*{lastName}"/>
+            <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></div>
 
             <label for="age">Возраст</label>
-            <input type="number" id="age" name="age" th:value="${user.age}"/>
+            <input type="number" id="age" name="age" th:value="*{age}"/>
+            <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="error"></div>
 
             <button type="submit" class="button">Сохранить</button>
             <a href="/users" class="button cancel">Отмена</a>

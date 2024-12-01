@@ -35,19 +35,6 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void saveOrUpdateUser(User user) {
-        validateUser (user);
         userDao.saveOrUpdateUser(user);
-    }
-
-    private void validateUser (User user) {
-        if (user.getAge() < 0) {
-            throw new IllegalArgumentException("Возраст пользователя не может быть ниже 0");
-        }
-        if (user.getFirstName() == null || user.getFirstName().isEmpty()) {
-            throw new IllegalArgumentException("Введите имя пользователя");
-        }
-        if (user.getLastName() == null || user.getLastName().isEmpty()) {
-            throw new IllegalArgumentException("Введите фамилию пользователя");
-        }
     }
 }
